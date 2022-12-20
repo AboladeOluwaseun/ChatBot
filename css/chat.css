@@ -6,7 +6,7 @@
 }
 
 .toggler {
-    background-color: rgb(82, 151, 255);
+    background-color: 	#25D366;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -114,7 +114,7 @@
 .userText span {
     line-height: 1.5em;
     display: inline-block;
-    background: #5ca6fa;
+    background: 	#25D366;
     padding: 10px;
     border-radius: 8px;
     border-bottom-right-radius: 2px;
