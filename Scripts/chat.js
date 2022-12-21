@@ -13,6 +13,7 @@ toggler.addEventListener("click", () => {
   }
 });
 
+//on calling this functions, it updates the chats in the local storage
 const updateChat = (message, type) => {
   const chats = JSON.parse(localStorage.getItem("chats")) || [];
   const newChat = { message, type };
@@ -27,6 +28,7 @@ const getBotMessage = (userInputValue) => {
     : responses[userInputValue];
 };
 
+//logic for displaying chats
 const renderMessage = () => {
   const chats = JSON.parse(localStorage.getItem("chats"));
   if (!chats || chats === undefined) return;
@@ -39,6 +41,7 @@ const renderMessage = () => {
   });
 };
 
+//this function is called onclick of the send button
 const sendButton = () => {
   updateChat(userInput.value, "userText");
   renderMessage();
@@ -50,7 +53,10 @@ const sendButton = () => {
   userInput.value = "";
 };
 
+//this calls the sendButton function when enter is pressed
 userInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") return sendButton();
 });
+
+//this function renders the chats in local storage onload
 renderMessage();
