@@ -29,18 +29,19 @@
 
 .full-chat-block {
     width: 350px;
+    background: white;
     text-align: center;
     overflow: auto;
     scrollbar-width: none;
     height: max-content;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.2s ease-out
 }
 
 .outer-container {
     min-height: 500px;
     bottom: 0%;
     position: relative;
-    background-color: white;
+   
 }
 
 .chat-container {
@@ -59,10 +60,11 @@
 }
 
 .chat-bar-input-block {
+   
     display: flex;
     float: left;
     box-sizing: border-box;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     align-items: center;
     background-color: rgb(235, 235, 235);
@@ -70,14 +72,7 @@
     padding: 10px 0px 10px 10px;
 }
 
-.chat-bar-icons {
-    display: flex;
-    justify-content: space-evenly;
-    box-sizing: border-box;
-    width: 25%;
-    float: right;
-    font-size: 20px;
-}
+
 
 #chat-icon:hover {
     opacity: .7;
@@ -165,7 +160,7 @@
         right: 0;
         width: 100%;
     }
-    .collapsible {
+    .toggler {
         width: 100%;
         border: 0px;
         border-top: 3px solid white;

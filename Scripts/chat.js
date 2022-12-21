@@ -2,6 +2,7 @@ const toggler = document.querySelector(".toggler");
 const content = document.getElementsByClassName("content")[0];
 const userInput = document.getElementById("textInput");
 const chatBox = document.getElementById("chatbox");
+const chatContainer = document.getElementsByClassName("chat-container")[0];
 
 //Toggle chatbox
 toggler.addEventListener("click", () => {
@@ -12,12 +13,11 @@ toggler.addEventListener("click", () => {
   }
 });
 
-//renderUserMessage
-const renderUserMessage = (userInputValue) => {
-  renderMessage(userInputValue, "userText");
-  setTimeout(() => {
-    renderBotMessage(userInputValue);
-  }, 600);
+const updateChat = (message, type) => {
+  const chats = JSON.parse(localStorage.getItem("chats")) || [];
+  const newChat = { message, type };
+  chats.push(newChat);
+  localStorage.setItem("chats", JSON.stringify(chats));
 };
 
 //get a response from ChatBot
@@ -26,24 +26,31 @@ const getBotMessage = (userInputValue) => {
     ? "I have no response to this"
     : responses[userInputValue];
 };
-// render message from bot
-const renderBotMessage = (userMessage) => {
-  const res = getBotMessage(userMessage);
-  renderMessage(res, "botText");
-};
 
-// logic for rendering messages
-const renderMessage = (message, className) => {
-  const response = getBotMessage(userInput.value);
-  const botChatHtml = document.createElement("p");
-  const span = document.createElement("span");
-  botChatHtml.classList.add(className);
-  span.innerText = `${message}`;
-  botChatHtml.appendChild(span);
-  chatBox.appendChild(botChatHtml);
+const renderMessage = () => {
+  const chats = JSON.parse(localStorage.getItem("chats"));
+  if (!chats || chats === undefined) return;
+  chatBox.innerHTML = "";
+  chats.forEach((chat) => {
+    const newChat = `
+      <p class=${chat.type}><span>${chat.message}</span></p>
+    `;
+    chatBox.innerHTML += newChat;
+  });
 };
 
 const sendButton = () => {
-  renderUserMessage(userInput.value);
+  updateChat(userInput.value, "userText");
+  renderMessage();
+  const botResponse = getBotMessage(userInput.value);
+  setTimeout(() => {
+    updateChat(botResponse, "botText");
+    renderMessage();
+  }, 600);
   userInput.value = "";
 };
+
+userInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") return sendButton();
+});
+renderMessage();
